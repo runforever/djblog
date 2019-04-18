@@ -37,6 +37,10 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
+
+    # djblog app
+    'djblog',
+    'djblog.app.article',
 )
 
 MIDDLEWARE_CLASSES = (
