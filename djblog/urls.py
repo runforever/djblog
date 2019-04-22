@@ -19,5 +19,6 @@ from djblog.app.article import views as article_views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^article/index/$', article_views.BlogIndexView.as_view()),
     url(r'^article/list/$', article_views.ArticleListView.as_view()),
 ]
