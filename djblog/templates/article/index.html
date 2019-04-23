@@ -10,9 +10,9 @@
                 <article class="blog-entry">
                     <div class="blog-wrap">
                         <span class="category text-center">
-                            <a href="#">{{ article.category.name }}</a>
+                            <a href="{% url 'index' %}?category={{ article.category_id }}">{{ article.category.name }}</a>
                         </span>
-                        <h2 class="text-center"><a href="#">{{ article.title }}</a></h2>
+                        <h2 class="text-center"><a href="{% url 'detail' article.id %}">{{ article.title }}</a></h2>
                         {% if article.images %}
                         <div class="blog-image">
                             {% for image in article.images %}
@@ -40,14 +40,14 @@
                         </div>
                         {% endif %}
                         <span class="category text-center">
-                            <a href="#"><i class="icon-calendar3"></i>{{ article.created_at|date:'Y-m-d H:M' }}</a>
+                            <a href="#"><i class="icon-calendar3"></i>{{ article.created_at|date:'Y-m-d H:i' }}</a>
                             | <a href="#" class="posted-by"><i class="icon-user2"></i> {{ article.author.username }}</a>
                             | <a href="#"><i class="icon-bubble3"></i>{{ article.comment_set.count }}</a></span>
                     </div>
                     <div class="desc">
                         {{ article.content }}
                     </div>
-                    <p class="text-center"><a href="#" class="btn btn-primary btn-custom">Continue Reading</a>
+                    <p class="text-center"><a href="{% url 'detail' article.id %}" class="btn btn-primary btn-custom">Continue Reading</a>
                     </p>
                 </article>
                 {% empty %}
@@ -195,10 +195,14 @@
                 <div class="side-wrap">
                     <h2 class="sidebar-heading">Categories</h2>
                     <ul class="category">
+                        {% for category in category_list %}
+                        <li><a href="{% url 'index' %}?category={{ category.id }}"><i class="icon-check"></i> {{ category.name }}</a></li>
+                        {% empty %}
                         <li><a href="#"><i class="icon-check"></i> Blog</a></li>
                         <li><a href="#"><i class="icon-check"></i> Lifestyle</a></li>
                         <li><a href="#"><i class="icon-check"></i> Travel</a></li>
                         <li><a href="#"><i class="icon-check"></i> Fashion</a></li>
+                        {% endfor %}
                     </ul>
                 </div>
 
