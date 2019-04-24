@@ -38,6 +38,9 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.admin',
 
+    # django lib
+    'el_pagination',
+
     # djblog app
     'djblog',
     'djblog.app.article',
