@@ -25,7 +25,7 @@ urlpatterns = [
         name='index'
     ),
     url(
-        r'^article/detail/(?P<id>\d+)/$',
+        r'^article/detail/(?P<pk>\d+)/$',
         article_views.ArticleDetailView.as_view(),
         name='detail'
     ),

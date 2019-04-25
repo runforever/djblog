@@ -1,4 +1,6 @@
 from django.shortcuts import render, get_object_or_404
+
+from django.views.generic.detail import DetailView
 from django.views import View
 
 from .filters import (
@@ -51,12 +53,12 @@ class BlogIndexView(View):
                 'category_list': category_list,
             }
         )
-"""
+
 
 class ArticleDetailView(View):
 
-    def get(self, request, id, *args, **kwargs):
-        article = get_object_or_404(Article, id=id)
+    def get(self, request, pk, *args, **kwargs):
+        article = get_object_or_404(Article, id=pk)
 
         return render(
             request,
@@ -65,3 +67,10 @@ class ArticleDetailView(View):
                 'article': article
             }
         )
+"""
+
+
+class ArticleDetailView(DetailView):
+    model = Article
+    template_name = 'article/detail.html'
+    context_object_name = 'article'
