@@ -13,12 +13,18 @@ from .models import (
 )
 
 
-class BlogIndexView(View):
+class ArticleTagMixin(object):
+
+    def get_tags(self):
+        return Tag.objects.all()
+
+
+class BlogIndexView(View, ArticleTagMixin):
 
     def get(self, request, *args, **kwargs):
         article_list = ArticleFilter(request.GET, queryset=Article.objects.all()).qs
         category_list = Category.objects.all()
-        tag_list = Tag.objects.all()
+        tag_list = self.get_tags()
 
         return render(
             request,
@@ -73,12 +79,12 @@ class ArticleDetailView(View):
 """
 
 
-class ArticleDetailView(DetailView):
+class ArticleDetailView(DetailView, ArticleTagMixin):
     model = Article
     template_name = 'article/detail.html'
     context_object_name = 'article'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['tag_list'] = Tag.objects.all()
+        context['tag_list'] = self.get_tags()
         return context
