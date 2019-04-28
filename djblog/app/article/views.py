@@ -9,6 +9,7 @@ from .filters import (
 from .models import (
     Article,
     Category,
+    Tag,
 )
 
 
@@ -17,6 +18,7 @@ class BlogIndexView(View):
     def get(self, request, *args, **kwargs):
         article_list = ArticleFilter(request.GET, queryset=Article.objects.all()).qs
         category_list = Category.objects.all()
+        tag_list = Tag.objects.all()
 
         return render(
             request,
@@ -24,6 +26,7 @@ class BlogIndexView(View):
             {
                 'article_list': article_list,
                 'category_list': category_list,
+                'tag_list': tag_list,
             }
         )
 """
@@ -74,3 +77,8 @@ class ArticleDetailView(DetailView):
     model = Article
     template_name = 'article/detail.html'
     context_object_name = 'article'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['tag_list'] = Tag.objects.all()
+        return context

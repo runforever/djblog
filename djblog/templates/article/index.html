@@ -229,6 +229,9 @@
         <div class="side-wrap">
           <h2 class="sidebar-heading">Tags</h2>
           <p class="tags">
+            {% for tag in tag_list %}
+            <span><a href="#"><i class="icon-tag"></i>{{ tag.name }}</a></span>
+            {% empty %}
             <span><a href="#"><i class="icon-tag"></i> Modeling</a></span>
             <span><a href="#"><i class="icon-tag"></i> Fashion</a></span>
             <span><a href="#"><i class="icon-tag"></i> Life</a></span>
@@ -248,6 +251,7 @@
             <span><a href="#"><i class="icon-tag"></i> Ocean</a></span>
             <span><a href="#"><i class="icon-tag"></i> Office</a></span>
             <span><a href="#"><i class="icon-tag"></i> Home</a></span>
+            {% endfor %}
           </p>
         </div>
 
