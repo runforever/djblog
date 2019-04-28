@@ -10,6 +10,7 @@ from .models import (
     Article,
     Category,
     Tag,
+    Comment,
 )
 
 
@@ -87,4 +88,5 @@ class ArticleDetailView(DetailView, ArticleTagMixin):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['tag_list'] = self.get_tags()
+        context['comment_list'] = Comment.objects.filter(article=context['article'])
         return context
