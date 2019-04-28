@@ -12,7 +12,7 @@ Class-based views
 Including another URLconf
     1. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import include, url
+from django.conf.urls import url
 from django.contrib import admin
 
 from djblog.app.article import views as article_views
@@ -28,5 +28,10 @@ urlpatterns = [
         r'^article/detail/(?P<pk>\d+)/$',
         article_views.ArticleDetailView.as_view(),
         name='detail'
+    ),
+    url(
+        r'^article/comment/$',
+        article_views.CommentView.as_view(),
+        name='comment'
     ),
 ]

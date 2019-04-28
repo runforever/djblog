@@ -1,6 +1,7 @@
-from django.shortcuts import render, get_object_or_404
-
+from django.shortcuts import render, get_object_or_404, redirect
+from django.http import HttpResponse
 from django.views.generic.detail import DetailView
+from django.views.generic.edit import CreateView
 from django.views import View
 
 from .filters import (
@@ -11,6 +12,9 @@ from .models import (
     Category,
     Tag,
     Comment,
+)
+from .forms import (
+    CommentForm
 )
 
 
@@ -77,6 +81,18 @@ class ArticleDetailView(View):
                 'article': article
             }
         )
+
+
+class CommentView(View):
+
+    def post(self, request, **kwargs):
+        form = CommentForm(request.POST)
+
+        if form.is_valid():
+            comment = form.save()
+            return redirect('detail', pk=comment.article_id)
+
+        return HttpResponse(form.errors)
 """
 
 
@@ -90,3 +106,23 @@ class ArticleDetailView(DetailView, ArticleTagMixin):
         context['tag_list'] = self.get_tags()
         context['comment_list'] = Comment.objects.filter(article=context['article'])
         return context
+
+
+class CommentView(CreateView):
+
+    model = Comment
+    fields = (
+        'article',
+        'nickname',
+        'email',
+        'content',
+    )
+    success_url = 'detail'
+
+    def form_valid(self, form):
+        super().form_valid(form)
+        return redirect('detail', pk=form.data['article'])
+
+    def form_invalid(self, form):
+        super().form_invalid(form)
+        return HttpResponse('表单有误请返回重新填写')
