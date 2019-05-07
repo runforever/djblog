@@ -3,6 +3,7 @@ from fabric.api import (
     task,
     run,
     cd,
+    hosts,
 )
 
 env.use_ssh_config = True
@@ -14,10 +15,11 @@ env.user = PROD_USER
 
 
 @task
-def deploy_web():
+@hosts(PROD_ENV)
+def deploy():
     with cd('/data/deploy_app/djblog'):
         run('git checkout -- .')
         run('git pull --rebase')
-        run('python manage.py migrate')
-        run('python manage.py collectstatic --noinput')
-        run('supervisor restart djblog')
+        run('pipenv run python manage.py migrate')
+        run('pipenv run python manage.py collectstatic --noinput')
+        run('supervisorctl restart djblog')
