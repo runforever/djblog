@@ -123,7 +123,7 @@
         {% endif %}
 
         <div class="comment-box">
-          <h2 class="colorlib-heading-2">3 Comments</h2>
+          <h2 class="colorlib-heading-2">{{ comment_list.count|default:0 }} 条评论</h2>
           {% for comment in comment_list %}
           <div class="comment-post">
             <div class="user" style="background-image: url({% get_static_prefix %}images/person1.jpg);"></div>

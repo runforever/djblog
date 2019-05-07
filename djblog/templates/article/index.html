@@ -49,7 +49,7 @@
           <div class="desc">
             {{ article.content }}
           </div>
-          <p class="text-center"><a href="{% url 'detail' article.id %}" class="btn btn-primary btn-custom">Continue Reading</a>
+          <p class="text-center"><a href="{% url 'detail' article.id %}" class="btn btn-primary btn-custom">查看详情</a>
           </p>
         </article>
         {% empty %}
@@ -201,7 +201,7 @@
         {% endcomment %}
 
         <div class="side-wrap">
-          <h2 class="sidebar-heading">Categories</h2>
+          <h2 class="sidebar-heading">文章分类</h2>
           <ul class="category">
             {% for category in category_list %}
             <li><a href="{% url 'index' %}?category={{ category.id }}"><i class="icon-check"></i> {{ category.name }}</a></li>
@@ -227,7 +227,7 @@
         {% endcomment %}
 
         <div class="side-wrap">
-          <h2 class="sidebar-heading">Tags</h2>
+          <h2 class="sidebar-heading">标签云</h2>
           <p class="tags">
             {% for tag in tag_list %}
             <span><a href="#"><i class="icon-tag"></i>{{ tag.name }}</a></span>

@@ -12,4 +12,9 @@ urlpatterns = [
         views.ArticleDetailView.as_view(),
         name='detail'
     ),
+    url(
+        r'^comment/$',
+        views.CommentView.as_view(),
+        name='comment'
+    ),
 ]
