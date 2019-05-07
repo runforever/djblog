@@ -19,5 +19,5 @@ def deploy_web():
         run('git checkout -- .')
         run('git pull --rebase')
         run('python manage.py migrate')
-        run('python manage.py collectstatic')
+        run('python manage.py collectstatic --noinput')
         run('supervisor restart djblog')
