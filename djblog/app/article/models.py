@@ -80,3 +80,40 @@ class Tag(models.Model):
     class Meta:
         verbose_name = '文章标签'
         verbose_name_plural = verbose_name
+
+
+class Comment(models.Model):
+    """
+    文章评论
+    """
+    article = models.ForeignKey(
+        'article.Article',
+        verbose_name='文章',
+        on_delete=models.CASCADE,
+    )
+    nickname = models.CharField(
+        '昵称',
+        max_length=50,
+    )
+    email = models.EmailField(
+        '邮箱',
+        max_length=80,
+    )
+    content = models.TextField(
+        '评论',
+    )
+    created_at = models.DateTimeField(
+        '创建时间',
+        auto_now_add=True
+    )
+    updated_at = models.DateTimeField(
+        '更新时间',
+        auto_now=True,
+    )
+
+    def __str__(self):
+        return self.nickname
+
+    class Meta:
+        verbose_name = '评论'
+        verbose_name_plural = verbose_name
