@@ -1,9 +1,13 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.http import HttpResponse
 from django.views.generic.detail import DetailView
 from django.views import View
 
 from .filters import (
     ArticleFilter,
+)
+from .forms import (
+    CommentForm,
 )
 from .models import (
     Article,
@@ -49,3 +53,15 @@ class ArticleDetailView(DetailView, ArticleTagMixin):
         article = context['article']
         context['comment_list'] = Comment.objects.filter(article=article)
         return context
+
+
+class CommentView(View):
+
+    def post(self, request, **kwargs):
+        form = CommentForm(request.POST)
+
+        if form.is_valid():
+            comment = form.save()
+            return redirect('detail', pk=comment.article_id)
+
+        return HttpResponse(form.errors)
