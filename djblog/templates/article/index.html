@@ -14,7 +14,7 @@
             <span class="category text-center">
               <a href="{% url 'index' %}?category={{ article.category_id }}">{{ article.category.name }}</a>
             </span>
-            <h2 class="text-center"><a href="{% url 'detail' article.id %}">{{ article.title }}</a></h2>
+            <h2 class="text-center"><a href="/article/detail/{{ article.id }}/">{{ article.title }}</a></h2>
             {% if article.images %}
             <div class="blog-image">
               {% for image in article.images %}
@@ -49,7 +49,7 @@
           <div class="desc">
             {{ article.content }}
           </div>
-          <p class="text-center"><a href="{% url 'detail' article.id %}" class="btn btn-primary btn-custom">查看详情</a>
+          <p class="text-center"><a href="/article/detail/{{ article.id }}/" class="btn btn-primary btn-custom">查看详情</a>
           </p>
         </article>
         {% empty %}

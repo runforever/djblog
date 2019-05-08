@@ -164,7 +164,7 @@
         </div>
         <div class="comment-area">
           <h2 class="colorlib-heading-2">Leave a comment</h2>
-          <form action="{% url 'comment' %}" method="POST">
+          <form action="/article/comment/" method="POST">
             {% csrf_token %}
             <input name="article" type="hidden" value="{{ article.id }}"/>
             <div class="row form-group">
