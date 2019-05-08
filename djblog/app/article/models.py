@@ -24,6 +24,11 @@ class Article(models.Model):
         blank=True,
         on_delete=models.SET_NULL,
     )
+    tags = models.ManyToManyField(
+        'article.Tag',
+        verbose_name='文章标签',
+        blank=True,
+    )
     created_at = models.DateTimeField(
         '创建时间',
         auto_now_add=True
@@ -56,4 +61,22 @@ class Category(models.Model):
 
     class Meta:
         verbose_name = '分类'
+        verbose_name_plural = verbose_name
+
+
+class Tag(models.Model):
+    """
+    文章标签
+    """
+
+    name = models.CharField(
+        '标签名',
+        max_length=50,
+    )
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = '文章标签'
         verbose_name_plural = verbose_name
