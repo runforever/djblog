@@ -17,18 +17,6 @@ class Article(models.Model):
         verbose_name='作者',
         on_delete=models.CASCADE,
     )
-    category = models.ForeignKey(
-        'article.Category',
-        verbose_name='分类',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-    )
-    tags = models.ManyToManyField(
-        'article.Tag',
-        verbose_name='文章标签',
-        blank=True,
-    )
     created_at = models.DateTimeField(
         '创建时间',
         auto_now_add=True
@@ -43,77 +31,4 @@ class Article(models.Model):
 
     class Meta:
         verbose_name = '文章'
-        verbose_name_plural = verbose_name
-
-
-class Category(models.Model):
-    """
-    文章分类
-    """
-
-    name = models.CharField(
-        '分类名',
-        max_length=50,
-    )
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = '分类'
-        verbose_name_plural = verbose_name
-
-
-class Tag(models.Model):
-    """
-    文章标签
-    """
-
-    name = models.CharField(
-        '标签名',
-        max_length=50,
-    )
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = '文章标签'
-        verbose_name_plural = verbose_name
-
-
-class Comment(models.Model):
-    """
-    文章评论
-    """
-    article = models.ForeignKey(
-        'article.Article',
-        verbose_name='文章',
-        on_delete=models.CASCADE,
-    )
-    nickname = models.CharField(
-        '昵称',
-        max_length=50,
-    )
-    email = models.EmailField(
-        '邮箱',
-        max_length=80,
-    )
-    content = models.TextField(
-        '评论',
-    )
-    created_at = models.DateTimeField(
-        '创建时间',
-        auto_now_add=True
-    )
-    updated_at = models.DateTimeField(
-        '更新时间',
-        auto_now=True,
-    )
-
-    def __str__(self):
-        return self.nickname
-
-    class Meta:
-        verbose_name = '评论'
         verbose_name_plural = verbose_name
