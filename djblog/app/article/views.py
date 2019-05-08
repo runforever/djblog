@@ -1,5 +1,6 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render
 from django.views import View
+from django.views.generic.detail import DetailView
 
 from .filters import (
     ArticleFilter,
@@ -26,15 +27,7 @@ class BlogIndexView(View):
         )
 
 
-class ArticleDetailView(View):
-
-    def get(self, request, pk, *args, **kwargs):
-        article = get_object_or_404(Article, id=pk)
-
-        return render(
-            request,
-            'article/detail.html',
-            {
-                'article': article
-            }
-        )
+class ArticleDetailView(DetailView):
+    model = Article
+    template_name = 'article/detail.html'
+    context_object_name = 'article'
