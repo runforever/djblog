@@ -43,7 +43,6 @@ INSTALLED_APPS = (
 
     # djblog app
     'djblog',
-    'djblog.app.article',
 )
 
 MIDDLEWARE_CLASSES = (
