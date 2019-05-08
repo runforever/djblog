@@ -5,14 +5,15 @@
 1. Python 3.7.2
 2. Django 2.2
 3. SQlite 3.27.2
-
-使用前请确定自己 Python 版本是否符合，建议使用 pyenv 来管理多个 Python 版本。
+4. [pipenv](https://github.com/pypa/pipenv)
 
 ## 安装
 1. 点击右上角的 Fork 按钮将项目 Fork 到自己的 GitHub
 2. 将项目 Clone 到本地
-3. 使用 virtualenv 初始化环境 `cd djblog && virtualenv .venv`
-4. 安装依赖 `source .venv && pip install requirements.txt`
-5. 运行项目 `python manage.py runserver`
+3. 使用 pipenv 初始化环境 `cd djblog && pipenv install`
+4. 进入 python 虚拟环境 `pipenv shell`
+5. 执行数据库变更 `python manage.py migrate`
+6. 运行项目 `python manage.py runserver`
 
-打开浏览器访问 `http://127.0.0.1:8000` 出现下图则安装成功。
+打开浏览器访问 `http://127.0.0.1:8000` 出现下图则安装成功：
+![Hello Django](http://cdn.defcoding.com/E4DB73AF-5F05-46EF-A9FE-67B8CC574F3B.png)
