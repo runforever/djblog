@@ -1,6 +1,9 @@
 from django.shortcuts import render, get_object_or_404
 from django.views import View
 
+from .filters import (
+    ArticleFilter,
+)
 from .models import (
     Article,
     Category,
@@ -10,17 +13,8 @@ from .models import (
 class BlogIndexView(View):
 
     def get(self, request, *args, **kwargs):
-        article_list = Article.objects.all()
+        article_list = ArticleFilter(request.GET, queryset=Article.objects.all()).qs
         category_list = Category.objects.all()
-
-        category_id = request.GET.get('category')
-        try:
-            category_id = int(category_id)
-        except (ValueError, TypeError):
-            category_id = None
-
-        if category_id:
-            article_list = article_list.filter(category_id=category_id)
 
         return render(
             request,
