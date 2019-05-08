@@ -17,6 +17,13 @@ class Article(models.Model):
         verbose_name='作者',
         on_delete=models.CASCADE,
     )
+    category = models.ForeignKey(
+        'article.Category',
+        verbose_name='分类',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+    )
     created_at = models.DateTimeField(
         '创建时间',
         auto_now_add=True
@@ -31,4 +38,22 @@ class Article(models.Model):
 
     class Meta:
         verbose_name = '文章'
+        verbose_name_plural = verbose_name
+
+
+class Category(models.Model):
+    """
+    文章分类
+    """
+
+    name = models.CharField(
+        '分类名',
+        max_length=50,
+    )
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = '分类'
         verbose_name_plural = verbose_name

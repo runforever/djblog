@@ -3,6 +3,7 @@ from django.views import View
 
 from .models import (
     Article,
+    Category,
 )
 
 
@@ -10,12 +11,23 @@ class BlogIndexView(View):
 
     def get(self, request, *args, **kwargs):
         article_list = Article.objects.all()
+        category_list = Category.objects.all()
+
+        category_id = request.GET.get('category')
+        try:
+            category_id = int(category_id)
+        except (ValueError, TypeError):
+            category_id = None
+
+        if category_id:
+            article_list = article_list.filter(category_id=category_id)
 
         return render(
             request,
             'article/index.html',
             {
                 'article_list': article_list,
+                'category_list': category_list,
             }
         )
 
